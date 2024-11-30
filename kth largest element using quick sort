@@ -1,0 +1,40 @@
+class Solution {
+public:
+       int find_pivot(vector<int>&arr,int l,int r){
+          int index=l;
+          int i=l,j=r;
+          while(i<=j){
+               if(arr[i]<arr[index] and arr[j]>arr[index]){
+                    swap(arr[i],arr[j]);
+                    i++,j--;
+               }
+               if(arr[i]>=arr[index]){
+                    i++;
+               }
+               if(arr[j]<=arr[index]){
+                    j--;
+               }
+          }
+          swap(arr[index],arr[j]);
+          return j;
+     }
+     int quicksort(vector<int>&arr,int l,int r,int k){
+          if(l>=r){
+               return l;
+          }
+          else{
+            int pivot_index=find_pivot(arr,l,r);
+            if((pivot_index+1)==k){
+               return pivot_index;
+            }else if((pivot_index)+1>k){
+               return quicksort(arr,l,pivot_index-1,k);
+            }else{
+               return quicksort(arr,pivot_index+1,r,k);
+            }
+          }
+     }
+    int findKthLargest(vector<int>& input, int k) {
+          int index=quicksort(input,0,input.size()-1,k);
+            return input[index];
+    }
+};
