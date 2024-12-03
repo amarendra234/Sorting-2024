@@ -1,0 +1,35 @@
+#include <bits/stdc++.h> 
+
+int find_pivot(vector<int>&arr,int l,int r){
+    int pivot_index=l;
+    int s=l;
+    int end=l+1;
+    while(end<=r){
+        if(arr[end]<=arr[pivot_index]){
+            s++;
+            swap(arr[s],arr[end]);
+        }
+        end++;
+    }
+    swap(arr[pivot_index],arr[s]);
+    return s;
+}
+void quicksort(vector<int>&arr,int l,int r){
+    if(l<r){
+       int pivot=find_pivot(arr,l,r);
+       quicksort(arr,l,pivot-1);
+       quicksort(arr,pivot+1,r);
+    }
+    
+}
+vector<int> quickSort(vector<int> arr)
+{
+    int n=arr.size();
+    vector<int>ans(n,0);
+    for(int i=0;i<arr.size();i++){
+        ans[i]=arr[i];
+    }
+    quicksort(ans,0,n-1);
+
+    return ans;
+}
